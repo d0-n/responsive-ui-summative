@@ -1,0 +1,122 @@
+[
+  {
+    "id": "rec_0001",
+    "title": "Chemistry 101",
+    "author": "Jane Doe",
+    "pages": 342,
+    "tag": "Science",
+    "dateAdded": "2025-09-29",
+    "isbn": "9781234567897",
+    "createdAt": "2025-09-29T10:00:00.000Z",
+    "updatedAt": "2025-09-29T10:00:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0002",
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "pages": 180,
+    "tag": "Fiction",
+    "dateAdded": "2025-09-20",
+    "isbn": "9780743273565",
+    "createdAt": "2025-09-20T14:30:00.000Z",
+    "updatedAt": "2025-09-20T14:30:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0003",
+    "title": "A Brief History of Time",
+    "author": "Stephen Hawking",
+    "pages": 256,
+    "tag": "Science",
+    "dateAdded": "2025-09-25",
+    "isbn": "9780553380163",
+    "createdAt": "2025-09-25T09:15:00.000Z",
+    "updatedAt": "2025-09-25T09:15:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0004",
+    "title": "Things Fall Apart",
+    "author": "Chinua Achebe",
+    "pages": 209,
+    "tag": "History",
+    "dateAdded": "2025-08-15",
+    "isbn": "9780385474542",
+    "createdAt": "2025-08-15T11:00:00.000Z",
+    "updatedAt": "2025-08-15T11:00:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0005",
+    "title": "Ancient Kingdoms",
+    "author": "Kush Kush",
+    "pages": 450,
+    "tag": "History",
+    "dateAdded": "2025-09-10",
+    "isbn": "9789966150242",
+    "createdAt": "2025-09-10T16:45:00.000Z",
+    "updatedAt": "2025-09-10T16:45:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0006",
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "pages": 310,
+    "tag": "Fiction",
+    "dateAdded": "2025-07-04",
+    "isbn": "0007270615",
+    "createdAt": "2025-07-04T08:00:00.000Z",
+    "updatedAt": "2025-07-04T08:00:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0007",
+    "title": "Design Patterns",
+    "author": "Erich Gamma",
+    "pages": 395,
+    "tag": "Technology",
+    "dateAdded": "2025-09-01",
+    "isbn": "9780201633610",
+    "createdAt": "2025-09-01T10:30:00.000Z",
+    "updatedAt": "2025-09-01T10:30:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0008",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "pages": 464,
+    "tag": "Technology",
+    "dateAdded": "2025-09-15",
+    "isbn": "9780132350884",
+    "createdAt": "2025-09-15T12:00:00.000Z",
+    "updatedAt": "2025-09-15T12:00:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0009",
+    "title": "The Subtle Art of Not Giving a F*ck",
+    "author": "Mark Manson",
+    "pages": 224,
+    "tag": "Philosophy",
+    "dateAdded": "2025-09-28",
+    "isbn": "9780062457714",
+    "createdAt": "2025-09-28T15:20:00.000Z",
+    "updatedAt": "2025-09-28T15:20:00.000Z",
+    "deletedAt": null
+  },
+  {
+    "id": "rec_0010",
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "pages": 281,
+    "tag": "Fiction",
+    "dateAdded": "2025-09-27",
+    "isbn": "9780061120084",
+    "createdAt": "2025-09-27T09:00:00.000Z",
+    "updatedAt": "2025-09-27T09:00:00.000Z",
+    "deletedAt": null
+  }
+]

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Tests</title>
+  <style>
+    :root {
+      --bg-page: #f4f4f4;
+      --bg-header-footer: #333333;
+      --text-dark: #222222;
+      --text-light: #ffffff;
+      --accent-gold: #ffc107;
+      --accent-brown: #795548;
+      --divider: #cccccc;
+      --success-green: #2e7d32;
+      --error-red: #c62828;
+    }
+    
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+      padding: 40px 24px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      border-bottom: 2px solid var(--accent-brown);
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      font-weight: normal;
+    }
+
+    .ledger-container {
+      background: white;
+      border: 1px solid var(--divider);
+      border-radius: 4px;
+      padding: 24px;
+    }
+
+    .suite-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--accent-brown);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      border-bottom: 1px dashed var(--divider);
+      padding-bottom: 4px;
+    }
+
+    .suite-title:first-of-type {
+      margin-top: 0;
+    }
+
+    .test-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #FAF6EE;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .test-name {
+      color: var(--text-dark);
+    }
+
+    .test-status {
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .test-status.pass {
+      color: var(--success-green);
+      background-color: #e8f5e9;
+    }
+
+    .test-status.fail {
+      color: var(--error-red);
+      background-color: #ffebee;
+    }
+
+    .summary-card {
+      margin-top: 32px;
+      padding: 16px;
+      border-radius: 4px;
+      background-color: var(--bg-header-footer);
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .summary-stats {
+      font-size: 16px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--accent-brown);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .back-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script src="script.js"></script>
+</head>
+<body>
+
+  <a href="index.html" class="back-btn">&larr; Back to Tracker</a>
+  
+  <h1>Validation Test Ledger</h1>
+  
+  <div class="ledger-container" id="test-ledger">
+    Loading test suite run...
+  </div>
+
+  <div class="summary-card">
+    <div class="summary-stats" id="summary-text">
+      Total Tests: 0 | Passed: 0 | Failed: 0
+    </div>
+    <div id="summary-grade" style="font-weight: bold; font-size: 20px; color: var(--accent-gold);">
+      -%
+    </div>
+  </div>
+
+  <script>
+    var V = window;
+    var State = window;
+    var results = [];
+    
+    function assert(suite, name, expression, expected) {
+      if (expected === undefined) expected = true;
+      var actual = expression;
+      var passed = actual === expected;
+      results.push({
+        suite: suite,
+        name: name,
+        passed: passed,
+        actual: actual,
+        expected: expected
+      });
+    }
+
+    var suiteTitle = "Title Validation (Rule 1)";
+    assert(suiteTitle, "Valid single-word title", V.validateTitle("Chemistry"), true);
+    assert(suiteTitle, "Valid multi-word title", V.validateTitle("The Art of War"), true);
+    assert(suiteTitle, "Invalid title: Leading spaces", V.validateTitle("   Chemistry"), false);
+    assert(suiteTitle, "Invalid title: Trailing spaces", V.validateTitle("Chemistry   "), false);
+    assert(suiteTitle, "Invalid title: Empty string", V.validateTitle(""), false);
+
+    var suitePages = "Pages Validation (Rule 2)";
+    assert(suitePages, "Valid page count: 342", V.validatePages(342), true);
+    assert(suitePages, "Valid page count: 5", V.validatePages("5"), true);
+    assert(suitePages, "Invalid page count: Zero", V.validatePages(0), false);
+    assert(suitePages, "Invalid page count: Negative", V.validatePages(-12), false);
+    assert(suitePages, "Invalid page count: Decimal", V.validatePages(34.2), false);
+    assert(suitePages, "Invalid page count: Non-numeric", V.validatePages("hundred"), false);
+
+    var suiteDate = "Date Validation (Rule 3)";
+    assert(suiteDate, "Valid date: 2025-09-29", V.validateDate("2025-09-29"), true);
+    assert(suiteDate, "Valid date: leap year", V.validateDate("2024-02-29"), true);
+    assert(suiteDate, "Invalid date format: DD-MM-YYYY", V.validateDate("29-09-2025"), false);
+    assert(suiteDate, "Invalid date: Non-existent date (Feb 30)", V.validateDate("2025-02-30"), false);
+    assert(suiteDate, "Invalid date: Out-of-bounds month (13)", V.validateDate("2025-13-10"), false);
+
+    var suiteTag = "Tag Validation (Rule 4)";
+    assert(suiteTag, "Valid tag: Science", V.validateTag("Science"), true);
+    assert(suiteTag, "Valid tag: Computer-Science", V.validateTag("Computer-Science"), true);
+    assert(suiteTag, "Valid tag: Fiction-Novel", V.validateTag("Fiction Novel"), true);
+    assert(suiteTag, "Invalid tag: Numeric", V.validateTag("Sci3nce"), false);
+    assert(suiteTag, "Invalid tag: Special characters", V.validateTag("Science!"), false);
+
+    var suiteAuthor = "Author Validation (Rule 5)";
+    assert(suiteAuthor, "Valid author: Jane Doe", V.validateAuthor("Jane Doe"), true);
+    assert(suiteAuthor, "Valid author: J.R.R. Tolkien", V.validateAuthor("J.R.R. Tolkien"), true);
+    assert(suiteAuthor, "Valid African spaced author: Kush Kush", V.validateAuthor("Kush Kush"), true);
+    assert(suiteAuthor, "Invalid author: Numeric values", V.validateAuthor("Jane D0e"), false);
+
+    var suiteIsbn = "Advanced ISBN Validation";
+    assert(suiteIsbn, "Valid ISBN-10", V.validateIsbn("0007270615"), true);
+    assert(suiteIsbn, "Valid ISBN-13", V.validateIsbn("978-0-13-235088-4"), true);
+    assert(suiteIsbn, "Invalid ISBN: Bad checksum", V.validateIsbn("978-0-13-235088-0"), false);
+    assert(suiteIsbn, "Valid ISBN: Empty optional", V.validateIsbn(""), true);
+
+    var suiteDuplicate = "Duplicate Word Back-reference Warning";
+    assert(suiteDuplicate, "Detects double title: The The Hobbit", V.hasDuplicateWords("The The Hobbit"), true);
+    assert(suiteDuplicate, "Normal title: The Hobbit", V.hasDuplicateWords("The Hobbit"), false);
+
+    var suiteState = "State Ledger Operations";
+    State.initState();
+    var books = State.getActiveBooks();
+    if (books.length > 0) {
+      var targetId = books[0].id;
+      var initialFav = !!books[0].favorite;
+      var toggledFav = State.toggleFavorite(targetId);
+      assert(suiteState, "Toggling favorite shifts state flag", toggledFav, !initialFav);
+      State.toggleFavorite(targetId);
+    } else {
+      assert(suiteState, "Skipping active favorite toggling (empty storage)", true, true);
+    }
+
+    var container = document.getElementById("test-ledger");
+    container.innerHTML = "";
+    
+    var currentSuite = "";
+    var passedCount = 0;
+    
+    for (var idx = 0; idx < results.length; idx++) {
+      var res = results[idx];
+      if (res.suite !== currentSuite) {
+        currentSuite = res.suite;
+        var header = document.createElement("div");
+        header.className = "suite-title";
+        header.textContent = currentSuite;
+        container.appendChild(header);
+      }
+      
+      var row = document.createElement("div");
+      row.className = "test-row";
+      
+      var name = document.createElement("span");
+      name.className = "test-name";
+      name.textContent = "[Assert] " + res.name;
+      
+      var status = document.createElement("span");
+      status.className = "test-status " + (res.passed ? "pass" : "fail");
+      status.textContent = res.passed ? "PASS" : "FAIL";
+      
+      row.appendChild(name);
+      row.appendChild(status);
+      container.appendChild(row);
+      
+      if (res.passed) passedCount++;
+    }
+
+    var total = results.length;
+    var failed = total - passedCount;
+    var grade = Math.round((passedCount / total) * 100);
+    
+    document.getElementById("summary-text").textContent = "Total Tests: " + total + " | Passed: " + passedCount + " | Failed: " + failed;
+    document.getElementById("summary-grade").textContent = grade + "%";
+  </script>
+</body>
+</html>

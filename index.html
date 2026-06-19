@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book and Notes Tracker</title>
+  <meta name="description" content="A simple book logging and note taking website.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="app-header">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button id="mobile-menu-btn" class="icon-btn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span
+          style="font-family: var(--font-serif); font-size: 20px; font-weight: bold; color: var(--accent-orange);">Book
+          Tracker</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <button class="icon-btn" aria-label="Notifications" style="position: relative;">
+        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+          <path
+            d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+        </svg>
+      </button>
+
+      <div
+        style="display: flex; align-items: center; gap: 8px; border-left: 1px solid var(--divider); padding-left: 12px;">
+        <button class="icon-btn" id="user-profile-btn" aria-label="User profile settings"
+          style="background-color: var(--accent-orange); color: white; border: none; font-weight: bold; font-family: var(--font-sans); font-size: 12px;">
+          NT
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav-toggle-strip" id="mobile-nav-strip">
+    Menu: About, Dashboard, My Books, Add Book, Settings
+  </div>
+
+  <div class="app-container">
+    <aside class="app-sidebar" id="app-sidebar" aria-label="Main Navigation">
+      <nav id="nav-menu">
+        <button class="nav-item active" data-target="about-section" accesskey="1">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+          </svg>
+          About
+        </button>
+        <button class="nav-item" data-target="dashboard-section" accesskey="2">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+          </svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-target="books-section" accesskey="3">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path
+              d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
+          </svg>
+          My Books
+        </button>
+        <button class="nav-item" data-target="add-section" id="nav-add-btn" accesskey="4">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          Add Book
+        </button>
+        <button class="nav-item" data-target="settings-section" accesskey="5">
+          <svg class="nav-icon" viewBox="0 0 24 24">
+            <path
+              d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+          </svg>
+          Settings
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main-content" id="main-content" tabindex="-1">
+
+      <section id="about-section" class="tab-section active">
+        <center>
+          <h2>Book Tracker</h2>
+          <div style="max-width: 450px; display: flex; flex-direction: column; gap: 16px;">
+            <p class="body-text" style="color: var(--text-dark); font-size: 15px;">
+              Welcome to my Book Tracker website. This is a site where you can save books, track reading goals, and see
+              stats about what you read.
+            </p>
+            <p class="body-text" style="color: var(--text-muted);">
+              It saves everything in the local storage of your browser.
+            </p>
+            <div style="margin-top: 10px; border-top: 1px solid var(--divider); padding-top: 16px;">
+              <span class="ui-label" style="color: var(--accent-orange); font-size: 12px;">Author Info</span>
+              <p class="ui-text" style="color: var(--text-dark); margin-top: 6px;">
+                Don Delice B. Marume | d.marume@alustudent.com
+              </p>
+            </div>
+          </div>
+        </center>
+      </section>
+
+      <section id="dashboard-section" class="tab-section">
+        <div style="margin-bottom: 20px;">
+          <h2 style="margin-bottom: 4px;">Dashboard</h2>
+          <p class="ui-small" style="color: var(--text-muted);" id="dashboard-user-greeting">Welcome back!</p>
+        </div>
+
+        <div class="stats-grid" role="region" aria-label="Reading Statistics">
+          <div class="stat-card">
+            <div>
+              <span class="card-label">Cataloged Books</span>
+              <span class="card-value" id="stat-books-count">0</span>
+            </div>
+            <div class="card-trend-badge badge-up" id="stat-books-badge">+0</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <span class="card-label" id="stat-pages-label">Pages Read</span>
+              <span class="card-value" id="stat-pages-count">0</span>
+            </div>
+            <div class="card-trend-badge badge-up" id="stat-pages-badge">+0</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <span class="card-label">Favorite Topic</span>
+              <span class="card-value" id="stat-favorite-tag">-</span>
+            </div>
+            <div class="card-trend-badge badge-neutral">Top Tag</div>
+          </div>
+          <div class="stat-card">
+            <div>
+              <span class="card-label">Goal Reached</span>
+              <span class="card-value" id="stat-goal-percentage">0%</span>
+            </div>
+            <div class="card-trend-badge badge-alert" id="stat-goal-badge">Pending</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+
+          <div class="panel-container">
+            <h3>Reading Trends (Last 7 Days)</h3>
+            <div class="weekly-chart-wrapper">
+              <div class="weekly-chart" id="weekly-chart" role="img" aria-label="Weekly page counts histogram">
+              </div>
+            </div>
+            <p class="body-text" id="dashboard-progress-text" style="margin-top: 12px; font-weight: 500;">
+              You're at 0% of your reading goal this month.
+            </p>
+          </div>
+
+          <div class="panel-container" style="display: flex; flex-direction: column;">
+            <h3>Reading Goal Progress</h3>
+            <div class="donut-chart-wrapper"
+              style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+              <svg width="150" height="150" viewBox="0 0 150 150" class="donut-svg">
+                <circle cx="75" cy="75" r="55" fill="transparent" stroke="#E2E8F0" stroke-width="12"></circle>
+                <circle cx="75" cy="75" r="55" fill="transparent" stroke="var(--accent-orange)" stroke-width="12"
+                  stroke-dasharray="345.5" stroke-dashoffset="345.5" class="donut-ring-fill" id="goal-donut-fill">
+                </circle>
+              </svg>
+              <div class="donut-center-text">
+                <span id="donut-percentage-label"
+                  style="font-family: var(--font-serif); font-size: 22px; font-weight: bold; color: var(--text-dark);">0%</span>
+                <span
+                  style="font-size: 9px; text-transform: uppercase; color: var(--text-muted); font-weight: bold; display: block; text-align: center;">done</span>
+              </div>
+            </div>
+
+            <div class="goal-tracker" style="margin-top: 8px;">
+              <div class="goal-input-row" style="justify-content: space-between;">
+                <label for="monthly-goal-input" style="font-weight: 500;">Goal limit:</label>
+                <div>
+                  <input type="number" id="monthly-goal-input" min="1" max="99999" value="1000"
+                    style="text-align: right; width: 80px; padding: 2px 6px;">
+                  <span class="ui-small" id="goal-unit-text"
+                    style="font-weight: 600; color: var(--text-muted);">pages</span>
+                </div>
+              </div>
+              <div id="goal-status-announcer" class="goal-text-alert alert-normal" role="status" aria-live="polite"
+                style="font-size: 12px; margin-top: 4px;">
+                Goal status loading...
+              </div>
+              <div style="border-top: 1px dashed var(--divider); padding-top: 8px; margin-top: 8px;" class="ui-small">
+                <span>Reading Time Prediction:</span>
+                <span id="reading-time-prediction"
+                  style="font-weight: 600; float: right; color: var(--accent-orange);">0h 0m</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-container">
+            <h3>Book Categories Split</h3>
+            <div id="category-distribution-container"
+              style="display: flex; flex-direction: column; gap: 10px; padding-top: 4px;">
+              <p class="ui-small" style="color: var(--text-muted); font-style: italic;">No books logged in catalog</p>
+            </div>
+          </div>
+
+          <div class="panel-container">
+            <h3>Recent Activity Logs</h3>
+            <div id="recent-activities-list"
+              style="display: flex; flex-direction: column; gap: 8px; max-height: 180px; overflow-y: auto; padding-right: 4px;">
+              <div style="font-size: 12px; color: var(--text-muted); font-style: italic;">No activity logs recorded
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="panel-container" style="margin-top: 24px; background: white;">
+          <div
+            style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--divider); padding-bottom: 8px; margin-bottom: 12px;">
+            <h3 style="border-bottom: none; margin-bottom: 0;">Recent Additions Activity Ledger</h3>
+            <button class="btn btn-secondary"
+              onclick="document.querySelector('.nav-item[data-target=books-section]').click()"
+              style="height: 24px; padding: 0 10px; font-size: 11px;">view all library</button>
+          </div>
+
+          <div class="table-wrapper" style="border: none; box-shadow: none;">
+            <table class="records-table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 40%;">Book</th>
+                  <th scope="col" style="width: 25%;">Pages</th>
+                  <th scope="col" style="width: 20%;">Tag</th>
+                  <th scope="col" style="width: 15%; text-align: right;">Added</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-recent-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="books-section" class="tab-section">
+        <div style="margin-bottom: 16px;">
+          <h2>Activity Ledger</h2>
+          <p class="ui-small" style="color: var(--text-muted);">Manage, filter, search, and sort your entire book vault
+          </p>
+        </div>
+
+        <div class="search-filter-row">
+          <div class="search-container">
+            <div class="search-input-wrapper">
+              <span class="search-icon-placeholder" aria-hidden="true"></span>
+              <input type="text" id="search-input" class="search-input" placeholder="find a book or note"
+                aria-label="Search catalog using text or regular expressions">
+            </div>
+            <div class="search-options">
+              <label class="checkbox-label" for="search-regex-toggle">
+                <input type="checkbox" id="search-regex-toggle"> Regex
+              </label>
+              <label class="checkbox-label" for="search-case-toggle">
+                <input type="checkbox" id="search-case-toggle" checked> Case-Insensitive
+              </label>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="sort-select" class="ui-small" style="color: var(--text-muted);">sort by:</label>
+            <select id="sort-select" class="sort-select" aria-label="Sort books list">
+              <option value="dateAdded-desc">Date Added (Newest)</option>
+              <option value="dateAdded-asc">Date Added (Oldest)</option>
+              <option value="title-asc">Title (A-Z)</option>
+              <option value="title-desc">Title (Z-A)</option>
+              <option value="pages-desc">Pages (Highest)</option>
+              <option value="pages-asc">Pages (Lowest)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="records-table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 30%;">Title</th>
+                <th scope="col" style="width: 25%;">Author</th>
+                <th scope="col" style="width: 10%;">Pages</th>
+                <th scope="col" style="width: 15%;">Tag</th>
+                <th scope="col" style="width: 10%;">Added</th>
+                <th scope="col" style="width: 10%; text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="books-table-body">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="books-card-grid" id="books-card-grid" style="display: none;" role="grid"
+          aria-label="Book collection cards ledger">
+        </div>
+
+        <div id="notes-overlay-drawer" class="notes-drawer" style="display: none;" role="dialog"
+          aria-labelledby="notes-drawer-title" aria-modal="true">
+          <div class="notes-drawer-header">
+            <h3 id="notes-drawer-title">Book Ledger Notes</h3>
+            <button id="close-notes-drawer-btn" class="btn-icon" aria-label="Close notes panel">×</button>
+          </div>
+          <div class="notes-drawer-body">
+            <p id="notes-drawer-content" class="ui-text" style="white-space: pre-wrap; font-family: var(--font-mono);">
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="add-section" class="tab-section">
+        <h2 id="form-heading">Tell us about this book</h2>
+
+        <div class="form-card">
+          <form id="book-form" novalidate>
+            <input type="hidden" id="edit-book-id" value="">
+
+            <div class="form-group">
+              <label for="form-title">Title</label>
+              <input type="text" id="form-title" required aria-describedby="error-title">
+              <div class="error-msg" id="error-title">Heads up, title can't start or end with a space.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-author">Author</label>
+              <input type="text" id="form-author" required aria-describedby="error-author">
+              <div class="error-msg" id="error-author">Author names must only contain letters, single spaces, or
+                hyphens.</div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-pages">Pages</label>
+                <input type="text" id="form-pages" required aria-describedby="error-pages">
+                <div class="error-msg" id="error-pages">Enter a positive number.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="form-date">Date added</label>
+                <input type="text" id="form-date" required placeholder="YYYY-MM-DD" aria-describedby="error-date">
+                <div class="error-msg" id="error-date">Must match format YYYY-MM-DD.</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-tag">Tag</label>
+              <input type="text" id="form-tag" required placeholder="e.g., Science, Fiction"
+                aria-describedby="error-tag">
+              <div class="error-msg" id="error-tag">Tag must be letters, spaces, or hyphens.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-isbn">ISBN (Optional, 10 or 13 digits)</label>
+              <input type="text" id="form-isbn" placeholder="e.g. 9780132350884" aria-describedby="error-isbn">
+              <div class="error-msg" id="error-isbn">Must be a valid 10 or 13 digit ISBN.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-notes">Personal Notes / Summary</label>
+              <textarea id="form-notes" placeholder="Write thoughts, warnings, key quotes, or summaries here..."
+                rows="3"
+                style="width:100%; border:none; border-bottom:1px solid var(--text-muted); background:transparent; font-family:var(--font-sans); font-size:14px; padding:8px 4px; resize:vertical; outline:none; transition:var(--transition-smooth);"></textarea>
+            </div>
+
+            <div id="duplicate-word-warning" class="error-msg"
+              style="color: var(--accent-orange); display: none; margin-bottom: 12px;">
+              Warning: Detected repeated word in the title.
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="form-submit-btn">Save book</button>
+              <button type="button" class="btn btn-secondary" id="form-cancel-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="settings-section" class="tab-section">
+        <h2>Make it yours</h2>
+
+        <div style="max-width: 500px; display: flex; flex-direction: column; gap: 24px;">
+          <div class="panel-container" style="background: white; border: 1px solid var(--divider); padding: 0;">
+
+            <div
+              style="padding: 16px; border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="body-text" style="font-weight: 600; color: var(--text-dark);">Measure reading in</span>
+                <p class="ui-small" style="color: var(--text-muted);">Change metric for tracking speed</p>
+              </div>
+              <div>
+                <select id="setting-unit-select" class="sort-select" style="height: 28px;">
+                  <option value="pages">pages</option>
+                  <option value="minutes">minutes</option>
+                </select>
+              </div>
+            </div>
+
+            <div
+              style="padding: 16px; border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="body-text" style="font-weight: 600; color: var(--text-dark);">Reading Pace
+                  (min/page)</span>
+                <p class="ui-small" style="color: var(--text-muted);">Estimated time required per page</p>
+              </div>
+              <div>
+                <input type="number" id="setting-pace-input" min="1" max="60" value="2" class="sort-select"
+                  style="width: 80px; height: 28px; padding-left: 6px;">
+              </div>
+            </div>
+
+            <div
+              style="padding: 16px; border-bottom: 1px solid var(--divider); display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="body-text" style="font-weight: 600; color: var(--text-dark);">Save a backup of your
+                  shelf</span>
+                <p class="ui-small" style="color: var(--text-muted);">Export or import your catalog data file</p>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-secondary" id="export-db-btn"
+                  style="height: 28px; padding: 0 10px;">export</button>
+                <button class="btn btn-secondary" id="import-trigger-btn"
+                  style="height: 28px; padding: 0 10px;">import</button>
+                <input type="file" id="import-db-file" accept=".json" style="display: none;">
+              </div>
+            </div>
+
+            <div style="padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <span class="body-text" style="font-weight: 600; color: var(--text-dark);">Reset to sample vault</span>
+                <p class="ui-small" style="color: var(--text-muted);">Overwrites storage with the default 10 books</p>
+              </div>
+              <div>
+                <button class="btn btn-secondary" id="reset-seed-btn"
+                  style="height: 28px; padding: 0 10px; border-color: var(--accent-orange); color: var(--accent-orange);">reset
+                  seed</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="panel-container" style="background: white;">
+            <h3 style="color: var(--accent-orange);">Recycle Bin (Recently Deleted)</h3>
+            <p class="ui-small" style="color: var(--text-muted); margin-bottom: 12px;">
+              Books are kept here for 7 days before auto-purging.
+            </p>
+            <div id="recycle-bin-container" style="display: flex; flex-direction: column; gap: 8px;">
+              <p class="ui-text" style="color: var(--text-muted); font-style: italic;" id="recycle-empty-text">Recycle
+                bin is empty</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    &copy; 2026 copyright
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
