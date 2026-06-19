@@ -46,3 +46,6 @@ This is a simple offline website to track books read, pages, and take notes.
 1. Start a local server (e.g. `npx serve` or Live Server) in the repository folder.
 2. Open `tests.html` in your web browser.
 3. The page runs unit tests and shows PASS/FAIL outputs.
+
+## Demo Video  
+https://drive.google.com/file/d/18QzfNaaGy3FPFP7Xb5vN-Fg2zg5kfTOV/view?usp=sharing
